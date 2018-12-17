@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Spring Boot中使用Swagger2构建强大的RESTful API文档 | 城南</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring boot：">
+<meta name="keywords" content="Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot中使用Swagger2构建强大的RESTful API文档">
+<meta property="og:url" content="http://yq5658.tom/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/index.html">
+<meta property="og:site_name" content="城南">
+<meta property="og:description" content="Spring boot：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-17T15:45:36.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot中使用Swagger2构建强大的RESTful API文档">
+<meta name="twitter:description" content="Spring boot：">
+  
+    <link rel="alternative" href="/atom.xml" title="城南" type="application/atom+xml">
+  
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: true
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">袁强</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">因为有了危机感，所以才要义无反顾。</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">博客首页</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/yq5658" title="github">github</a>
+                            
+                                <a class="fl wechat" target="_blank" href="/img/wechatimg.jpg" title="wechat">wechat</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Spring-Boot/" style="font-size: 20px;">Spring Boot</a> <a href="/tags/Spring-boot/" style="font-size: 10px;">Spring boot</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://github.com/yq5658">我的Git</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">有一种力量无人能抵挡，它永不言败生来倔强。有一种理想照亮了迷茫，在那写满荣耀的地方</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">袁强</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">袁强</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">因为有了危机感，所以才要义无反顾。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">博客首页</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/yq5658" title="github">github</a>
+                    
+                        <a class="wechat" target="_blank" href="/img/wechatimg.jpg" title="wechat">wechat</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Spring Boot中的缓存支持（二）使用Redis做集中式缓存" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/" class="article-date">
+      <time datetime="2018-12-15T18:58:41.000Z" itemprop="datePublished">2018-12-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Boot中使用Swagger2构建强大的RESTful API文档
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/后端/">后端</a><a class="article-category-link" href="/categories/后端/JAVA教程/">JAVA教程</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　<strong> Spring boot：</strong><excerpt in="" index="" |="" 首页摘要=""> </excerpt></p>
+<ul>
+<li><a id="more"></a>
+<the rest="" of="" contents="" |="" 余下全文="">
+</the></li>
+<li><p>虽然EhCache已经能够适用很多应用场景，但是由于EhCache是进程内的缓存框架，在集群模式下时，各应用服务器之间的缓存都是独立的，因此在不同服务器的进程间会存在缓存不一致的情况。即使EhCache提供了集群环境下的缓存同步策略，但是同步依然需要一定的时间，短暂的缓存不一致依然存在。</p>
+<p>在一些要求高一致性（任何数据变化都能及时的被查询到）的系统和应用中，就不能再使用EhCache来解决了，这个时候使用集中式缓存是个不错的选择，因此本文将介绍如何在Spring Boot的缓存支持中使用Redis进行数据缓存。</p>
+<p>下面以上一篇的例子作为基础进行改造，将缓存内容迁移到redis中。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>可以下载案例<a href="http://git.oschina.net/didispace/SpringBoot-Learning" target="_blank" rel="noopener">Chapter4-4-1</a>，进行下面改造步骤。</p>
+<p>先来回顾一下在此案例中，我们做了什么内容：</p>
+<ul>
+<li>引入了<code>spring-data-jpa</code>和<code>EhCache</code></li>
+<li>定义了<code>User</code>实体，包含<code>id</code>、<code>name</code>、<code>age</code>字段</li>
+<li>使用<code>spring-data-jpa</code>实现了对<code>User</code>对象的数据访问接口<code>UserRepository</code></li>
+<li>使用<code>Cache</code>相关注解配置了缓存</li>
+<li>单元测试，通过连续的查询和更新数据后的查询来验证缓存是否生效</li>
+</ul>
+<h2 id="开始改造"><a href="#开始改造" class="headerlink" title="开始改造"></a>开始改造</h2><ul>
+<li>删除EhCache的配置文件<code>src/main/resources/ehcache.xml</code></li>
+<li><code>pom.xml</code>中删除EhCache的依赖，增加redis的依赖：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>application.properties</code>中增加redis配置，以本地运行为例，比如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host=localhost</span><br><span class="line">spring.redis.port=6379</span><br><span class="line">spring.redis.pool.max-idle=8</span><br><span class="line">spring.redis.pool.min-idle=0</span><br><span class="line">spring.redis.pool.max-active=8</span><br><span class="line">spring.redis.pool.max-wait=-1</span><br></pre></td></tr></table></figure>
+<p>我们需要做的配置到这里就已经完成了，Spring Boot会在侦测到存在Redis的依赖并且Redis的配置是可用的情况下，使用<code>RedisCacheManager</code>初始化<code>CacheManager</code>。</p>
+<p>为此，我们可以单步运行我们的单元测试，可以观察到此时<code>CacheManager</code>的实例是<code>org.springframework.data.redis.cache.RedisCacheManager</code>，并获得下面的执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into user (age, name) values (?, ?)</span><br><span class="line">Hibernate: select user0_.id as id1_0_, user0_.age as age2_0_, user0_.name as name3_0_ from user user0_ where user0_.name=?</span><br><span class="line">第一次查询：10</span><br><span class="line">第二次查询：10</span><br><span class="line">Hibernate: select user0_.id as id1_0_0_, user0_.age as age2_0_0_, user0_.name as name3_0_0_ from user user0_ where user0_.id=?</span><br><span class="line">Hibernate: update user set age=?, name=? where id=?</span><br><span class="line">第三次查询：10</span><br></pre></td></tr></table></figure>
+<p>可以观察到，在第一次查询的时候，执行了select语句；第二次查询没有执行select语句，说明是从缓存中获得了结果；而第三次查询，我们获得了一个错误的结果，根据我们的测试逻辑，在查询之前我们已经将age更新为20，但是我们从缓存中获取到的age还是为10。</p>
+<h2 id="问题思考"><a href="#问题思考" class="headerlink" title="问题思考"></a>问题思考</h2><p>为什么同样的逻辑在EhCache中没有问题，但是到Redis中会出现这个问题呢？</p>
+<p>在EhCache缓存时没有问题，主要是由于EhCache是进程内的缓存框架，第一次通过select查询出的结果被加入到EhCache缓存中，第二次查询从EhCache取出的对象与第一次查询对象实际上是同一个对象（可以在使用Chapter4-4-1工程中，观察u1==u2来看看是否是同一个对象），因此我们在更新age的时候，实际已经更新了EhCache中的缓存对象。</p>
+<p>而Redis的缓存独立存在于我们的Spring应用之外，我们对数据库中数据做了更新操作之后，没有通知Redis去更新相应的内容，因此我们取到了缓存中未修改的数据，导致了数据库与缓存中数据的不一致。</p>
+<p><strong>因此我们在使用缓存的时候，要注意缓存的生命周期，利用好上一篇上提到的几个注解来做好缓存的更新、删除</strong></p>
+<h2 id="进一步修改"><a href="#进一步修改" class="headerlink" title="进一步修改"></a>进一步修改</h2><p>针对上面的问题，我们只需要在更新age的时候，通过<code>@CachePut</code>来让数据更新操作同步到缓存中，就像下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@CacheConfig(cacheNames = &quot;users&quot;)</span><br><span class="line">public interface UserRepository extends JpaRepository&lt;User, Long&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Cacheable(key = &quot;#p0&quot;)</span><br><span class="line">    User findByName(String name);</span><br><span class="line"></span><br><span class="line">    @CachePut(key = &quot;#p0.name&quot;)</span><br><span class="line">    User save(User user);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在redis-cli中flushdb，清空一下之前的缓存内容，再执行单元测试，可以获得下面的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: insert into user (age, name) values (?, ?)</span><br><span class="line">第一次查询：10</span><br><span class="line">第二次查询：10</span><br><span class="line">Hibernate: select user0_.id as id1_0_0_, user0_.age as age2_0_0_, user0_.name as name3_0_0_ from user user0_ where user0_.id=?</span><br><span class="line">Hibernate: update user set age=?, name=? where id=?</span><br><span class="line">第三次查询：20</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们的第三次查询获得了正确的结果！同时，我们的第一次查询也不是通过select查询获得的，因为在初始化数据的时候，调用save方法时，就已经将这条数据加入了redis缓存中，因此后续的查询就直接从redis中获取了。</p>
+<p>本文内容到此为止，主要介绍了为什么要使用Redis做缓存，以及如何在Spring Boot中使用Redis做缓存，并且通过一个小问题来帮助大家理解缓存机制，在使用过程中，一定要注意缓存生命周期的控制，防止数据不一致的情况出现。</p>
+</li>
+</ul>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>给我点鼓励让我继续写下去把</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫">
+            </div>
+              <div class="pay_explain">咱们一定要一起努力哟</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝"></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/wechat.jpg" alt="微信"></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/">Spring Boot中使用Swagger2构建强大的RESTful API文档</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 袁强 的个人博客">袁强</a></p>
+        <p><span>发布时间:</span>2018年12月16日 - 02时58分</p>
+        <p><span>最后更新:</span>2018年12月17日 - 23时45分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/" title="Spring Boot中使用Swagger2构建强大的RESTful API文档">http://yq5658.tom/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yq5658.tom/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/　　作者: 袁强" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/15/Spring Boot中使用Swagger2构建强大的RESTful API文档/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Boot中使用Swagger2构建强大的RESTful API文档</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始改造"><span class="toc-number">2.</span> <span class="toc-text">开始改造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题思考"><span class="toc-number">3.</span> <span class="toc-text">问题思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进一步修改"><span class="toc-number">4.</span> <span class="toc-text">进一步修改</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+            <!-- ������City�氲װ���� -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTY3MS8xODIxNw==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>Ϊ����ʹ�����������۹����뼤��JavaScript</noscript>
+</div>
+<!-- City�氲װ��������� -->
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/12/15/Spring Boot中使用Swagger2构建强大的RESTful API文档/" title="下一篇: Spring Boot中使用Swagger2构建强大的RESTful API文档">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/16/Spring Boot中的缓存支持（二）使用Redis做集中式缓存/">Spring Boot中使用Swagger2构建强大的RESTful API文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/15/Spring Boot中使用Swagger2构建强大的RESTful API文档/">Spring Boot中使用Swagger2构建强大的RESTful API文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/15/Spring Boot中使用MyBatis注解配置详解/">Spring Boot中使用MyBatis注解配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/16/Spring Boot属性配置文件详解/">Spring Boot属性配置文件详解</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 袁强
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by 城南
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<!-- <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> -->
+
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
